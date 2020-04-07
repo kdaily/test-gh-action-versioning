@@ -26,7 +26,7 @@ jobs:
         software_version=$(cat SOFTWARE_VERSION)
         version=$(cat VERSION)
         arrIN=(${version//--/ })
-        new_base_version=$(echo ${arrIN[1] + 1 | bc)
+        new_base_version=$(echo ${arrIN[1]} + 1 | bc)
         echo "${software_version}--${new_base_version}" > VERSION
         git config --global user.name 'Kenneth Daily'
         git config --global user.email 'kdaily@users.noreply.github.com'
