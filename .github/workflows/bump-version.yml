@@ -27,4 +27,8 @@ jobs:
         software_version=$(cat SOFTWARE_VERSION)
         new_base_version=$(echo $base_version + 1 | bc)
         echo $new_base_version > BASE_VERSION
-        echo $software_version--$new_base_version
+        git config --global user.name 'Kenneth Daily'
+        git config --global user.email 'kdaily@users.noreply.github.com'
+        git commit -am "Bump version to ${software_version}--${new_base_version}"
+        git push
+        echo "Bump version to ${software_version}--${new_base_version}"
