@@ -27,9 +27,11 @@ jobs:
         version=$(cat VERSION)
         arrIN=(${version//--/ })
         new_base_version=$(echo ${arrIN[1]} + 1 | bc)
-        echo "${software_version}--${new_base_version}" > VERSION
+        export new_version="${software_version}--${new_base_version}"
+        echo "::set-env name=NEW_VERSION::${new_version}"
+        echo "${{ env.NEW_VERSION }}" > VERSION
         git config --global user.name 'Kenneth Daily'
         git config --global user.email 'kdaily@users.noreply.github.com'
-        git commit -am "Bump version to ${software_version}--${new_base_version}"
+        git commit -am "Bump version to ${{ env.NEW_VERSION }}"
         git push
-        echo "Bump version to ${software_version}--${new_base_version}"
+        echo "Bump version to ${{ env.NEW_VERSION }}"
