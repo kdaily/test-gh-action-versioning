@@ -28,7 +28,7 @@ jobs:
         arrIN=(${version//--/ })
         new_base_version=$(echo ${arrIN[1]} + 1 | bc)
         export new_version="${software_version}--${new_base_version}"
-        echo "::set-env name=NEW_VERSION::${new_version}"
+        echo "::set-env name=NEW_VERSION::$new_version"
         echo "${{ env.NEW_VERSION }}" > VERSION
         git config --global user.name 'Kenneth Daily'
         git config --global user.email 'kdaily@users.noreply.github.com'
