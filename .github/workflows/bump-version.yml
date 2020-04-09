@@ -29,6 +29,7 @@ jobs:
         new_base_version=$(echo ${arrIN[1]} + 1 | bc)
         export new_version="${software_version}--${new_base_version}"
         echo "::set-env name=NEW_VERSION::$new_version"
+        echo "::set-env name=SOFTWARE_VERSION::$software_version"
 
     - name: Bump version
       run: |
@@ -38,3 +39,15 @@ jobs:
         git commit -am "Bump version to ${{ env.NEW_VERSION }}"
         git push
         echo "Bump version to ${{ env.NEW_VERSION }}"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: kdaily/test-gh-action-versioning
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "latest,${{ env.NEW_VERSION }},${{ env.SOFTWARE_VERSION }}"
