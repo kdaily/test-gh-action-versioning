@@ -26,7 +26,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Runs a set of commands using the runners shell
+    # Get verison from VERSION file and set in the environment
     - name: Get and set versions
       run: |
         version=$(cat VERSION)
