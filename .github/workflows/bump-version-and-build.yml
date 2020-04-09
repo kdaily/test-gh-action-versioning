@@ -18,6 +18,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   bump:
+    # Do not run if "[skip-ci]" is in the commit message.
     if: "! contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
     runs-on: ubuntu-latest
 
@@ -26,12 +27,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Get verison from VERSION file and set in the environment
-    - name: Get and set versions
+    - name: Get versions from files in repo, update them, and set in env
       run: |
+        software_version=$(cat SOFTWARE_VERSION)
         version=$(cat VERSION)
         arrIN=(${version//--/ }) # split the versions on the '--'
-        software_version=${arrIN[0]}
         new_base_version=$(echo ${arrIN[1]} + 1 | bc)
         export new_version="${software_version}--${new_base_version}"
         echo "::set-env name=NEW_VERSION::$new_version"
@@ -55,8 +55,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v2
 
-    # Runs a set of commands using the runners shell
-    - name: Get versions and set in env
+    - name: Get versions from files in repo and set in env
       run: |
         software_version=$(cat SOFTWARE_VERSION)
         version=$(cat VERSION)
