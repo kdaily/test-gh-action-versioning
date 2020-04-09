@@ -39,11 +39,14 @@ jobs:
         git commit -am "Bump version to ${{ env.NEW_VERSION }}"
         git push
         echo "Bump version to ${{ env.NEW_VERSION }}"
-
+        
   build:
     runs-on: ubuntu-latest
 
     steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
     # Runs a set of commands using the runners shell
     - name: Get and set versions
       run: |
@@ -53,7 +56,7 @@ jobs:
         echo "::set-env name=SOFTWARE_VERSION::$software_version"
 
 #     - name: Publish to Registry
-#     - uses: actions/checkout@master
+#     - uses: actions/checkout@v2
 #     - uses: elgohr/Publish-Docker-Github-Action@master
 #       with:
 #         name: dailyk/test-gh-action-versioning
