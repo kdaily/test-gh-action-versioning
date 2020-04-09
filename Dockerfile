@@ -11,7 +11,7 @@ LABEL about.tags="RNASeq"
 
 COPY VERSION /
 COPY SOFTWARE_VERSION /
-ENV SOFTWARE_VERSION $(cat /SOFTWARE_VERSION)
+RUN export SOFTWARE_VERSION=$(cat /SOFTWARE_VERSION)
 
 # Install dependencies
 RUN apt-get update \
