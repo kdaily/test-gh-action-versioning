@@ -47,7 +47,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: kdaily/test-gh-action-versioning
+        name: dailyk/test-gh-action-versioning
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: "latest,${{ env.NEW_VERSION }},${{ env.SOFTWARE_VERSION }}"
