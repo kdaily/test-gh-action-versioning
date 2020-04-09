@@ -11,7 +11,6 @@ LABEL about.tags="RNASeq"
 
 COPY VERSION /
 COPY SOFTWARE_VERSION /
-RUN export SOFTWARE_VERSION=$(cat /SOFTWARE_VERSION)
 
 # Install dependencies
 RUN apt-get update \
@@ -22,7 +21,8 @@ RUN apt-get update \
     wget 
 
 # Install STAR aligner
-RUN wget https://github.com/alexdobin/STAR/archive/${SOFTWARE_VERSION}.tar.gz \
+RUN export SOFTWARE_VERSION=$(cat /SOFTWARE_VERSION) \
+ && wget https://github.com/alexdobin/STAR/archive/${SOFTWARE_VERSION}.tar.gz \
  && tar -xf ${SOFTWARE_VERSION}.tar.gz \
  && rm ${SOFTWARE_VERSION}.tar.gz \
  && cd STAR-${SOFTWARE_VERSION} \
