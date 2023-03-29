@@ -62,7 +62,7 @@ jobs:
         echo "::set-env name=SOFTWARE_VERSION::$software_version"
 
     - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: dailyk/test-gh-action-versioning
         username: ${{ secrets.DOCKER_USERNAME }}
